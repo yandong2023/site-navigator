@@ -1,0 +1,27 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="640" fill="#0B1020"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1280" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect x="58" y="54" width="1164" height="532" rx="28" fill="url(#g)" opacity="0.15"/>
+  <text x="90" y="150" fill="#FFFFFF" font-size="68" font-family="Arial, Helvetica, sans-serif" font-weight="700">site-navigator</text>
+  <text x="90" y="210" fill="#C7D2FE" font-size="28" font-family="Arial">OpenClaw skill for difficult-site access and direct-link navigation</text>
+
+  <rect x="90" y="280" rx="18" ry="18" width="480" height="220" fill="#111827" stroke="#374151" stroke-width="2"/>
+  <text x="120" y="330" fill="#F9FAFB" font-size="28" font-family="Arial" font-weight="700">What it improves</text>
+  <text x="120" y="375" fill="#D1D5DB" font-size="24" font-family="Arial">• Open real links directly</text>
+  <text x="120" y="415" fill="#D1D5DB" font-size="24" font-family="Arial">• Reach the real target page</text>
+  <text x="120" y="455" fill="#D1D5DB" font-size="24" font-family="Arial">• Handle Zhihu / Xiaohongshu / WeChat / Bilibili</text>
+  <text x="120" y="495" fill="#D1D5DB" font-size="24" font-family="Arial">• Reduce unnecessary paid-search dependence</text>
+
+  <rect x="640" y="280" rx="18" ry="18" width="500" height="220" fill="#111827" stroke="#374151" stroke-width="2"/>
+  <text x="670" y="330" fill="#F9FAFB" font-size="28" font-family="Arial" font-weight="700">Core idea</text>
+  <text x="670" y="380" fill="#D1D5DB" font-size="24" font-family="Arial">route → judge page state → verify source → answer</text>
+  <text x="670" y="425" fill="#93C5FD" font-size="24" font-family="Arial">discovery surface ≠ real target page</text>
+  <text x="670" y="470" fill="#A7F3D0" font-size="24" font-family="Arial">stable-first output, browser-backed recovery</text>
+
+  <text x="90" y="560" fill="#9CA3AF" font-size="22" font-family="Arial">Built for OpenClaw workflows where normal search/fetch paths are not enough.</text>
+</svg>

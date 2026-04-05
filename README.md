@@ -1,5 +1,7 @@
 # site-navigator
 
+![social preview](assets/social-preview.svg)
+
 English | [简体中文](#简体中文)
 
 OpenClaw-native browsing skill for hard-to-access web content.
@@ -320,8 +322,8 @@ Instead of paying for generic search first, the better path is to open the first
 ## Visual roadmap
 
 Planned visual assets include:
-- architecture diagram
-- social preview image
+- architecture diagram (`assets/architecture.svg`)
+- social preview image (`assets/social-preview.svg`)
 - optional logo / banner
 
 A draft source for the architecture diagram currently lives in:
