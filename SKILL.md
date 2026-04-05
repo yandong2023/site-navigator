@@ -254,6 +254,8 @@ Never store secrets, cookies, tokens, or personal data.
 ## References
 
 Read these when relevant:
+- `references/examples.md` for concrete task examples
+- `references/failure-recovery.md` for what to do when browsing/extraction fails
 - `references/task-patterns.md` for common browsing task shapes
 - `references/source-hierarchy.md` for deciding whether evidence is strong enough
 - `references/output-contract.md` for how to report browsing results clearly
@@ -262,6 +264,11 @@ Read these when relevant:
 - `references/site-patterns/xiaohongshu.md`
 - `references/site-patterns/zhihu.md`
 - `references/site-patterns/github.md`
+
+## Recovery rule
+
+When a method fails, change the approach based on what the failure teaches you.
+Read `references/failure-recovery.md` when you hit incomplete extraction, ambiguous page state, login walls, or unstable discovery paths.
 
 ## Anti-patterns
 
