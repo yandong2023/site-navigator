@@ -38,3 +38,10 @@ It is especially useful for:
 ## Status
 
 Early version, intended for iterative refinement inside OpenClaw workflows.
+
+## Roadmap
+
+- Validate against more real OpenClaw browsing tasks
+- Expand site patterns based on repeated use
+- Refine trigger boundaries and reporting rules
+- Prepare for broader public iteration
