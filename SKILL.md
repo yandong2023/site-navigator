@@ -217,6 +217,8 @@ Do not:
 ## Task pattern selection
 
 Read `references/task-patterns.md` when the user task shape is unclear and you need a default execution pattern.
+Read `references/target-page-judgment.md` when you need to decide whether the current page is still a discovery surface or already the real target page.
+Read `references/runtime-modes.md` when routing may differ between desktop and server environments.
 
 ## Parallel web research
 
@@ -254,6 +256,9 @@ Never store secrets, cookies, tokens, or personal data.
 ## References
 
 Read these when relevant:
+- `references/target-page-judgment.md` for deciding whether the current page is the real target
+- `references/runtime-modes.md` for desktop vs server strategy differences
+- `references/real-cases.md` for representative real-world usage cases
 - `references/examples.md` for concrete task examples
 - `references/failure-recovery.md` for what to do when browsing/extraction fails
 - `references/task-patterns.md` for common browsing task shapes

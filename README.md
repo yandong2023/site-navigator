@@ -302,6 +302,31 @@ With `site-navigator`, the intended workflow becomes:
 - “Open this Bilibili page and tell me what the current visible page is.”
 - “Inspect this GitHub repo page directly instead of relying on search snippets.”
 
+
+## Real cases
+
+### Case 1 — WeChat article link
+A user sends a direct WeChat article URL.
+The useful path is not generic search. The useful path is to open the real article page, confirm it is accessible, and read the actual content.
+
+### Case 2 — Zhihu article link
+A user sends a Zhihu article URL.
+The challenge is not discovery. The challenge is determining whether the current page is already the real article page and only then summarizing it.
+
+### Case 3 — GitHub repo page without wasting paid search
+A user already knows the repo target.
+Instead of paying for generic search first, the better path is to open the first-party repo page directly and inspect it there.
+
+## Visual roadmap
+
+Planned visual assets include:
+- architecture diagram
+- social preview image
+- optional logo / banner
+
+A draft source for the architecture diagram currently lives in:
+- `assets/ARCHITECTURE.md`
+
 ## Repository structure
 
 - `SKILL.md` — main skill definition
@@ -639,6 +664,31 @@ cd site-navigator
 - “去这个小红书页面看一下，确认是不是目标账号。”
 - “打开这个 B 站页面，告诉我当前真实可见页面是什么。”
 - “直接看这个 GitHub repo 页面，不要只依赖搜索摘要。”
+
+
+## 真实案例
+
+### Case 1 — 公众号文章链接
+用户直接发来一篇公众号文章 URL。
+这时候最有价值的不是再去通用搜索，而是直接打开真实文章页，确认它是否可访问，并读取真实内容。
+
+### Case 2 — 知乎文章链接
+用户发来一篇知乎文章 URL。
+这里难点不在 discovery，而在于判断当前是不是已经到达真实文章页；只有到达真实目标页后，结论才稳定。
+
+### Case 3 — 已知 GitHub repo 页面，避免浪费付费搜索
+用户已经知道 repo 目标。
+这时候比起先走付费搜索，更合理的路径是直接打开 repo 一手页面，在真实页面里完成判断。
+
+## 视觉层规划
+
+后续计划补这些视觉资产：
+- 架构图
+- social preview 图
+- 可选 logo / banner
+
+目前架构图的草稿文字已经放在：
+- `assets/ARCHITECTURE.md`
 
 ## 仓库结构
 
