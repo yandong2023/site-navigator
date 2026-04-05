@@ -66,3 +66,9 @@ For comparisons, keep the final structure stable:
 - summary table or bullets first
 - per-source detail second
 - screenshots only if the differences are visual and important
+
+
+## Discovery surface warning
+
+If you are still on a search/discovery surface, say so.
+Do not report a final answer as if the target page itself has already been verified.

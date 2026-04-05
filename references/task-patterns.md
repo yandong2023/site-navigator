@@ -78,3 +78,15 @@ Preferred path:
 2. inspect current state
 3. capture evidence screenshots only where useful
 4. describe exact visible behavior, not guesses
+
+
+## 7. Distinguish discovery surface vs real target page
+
+Examples:
+- platform search results vs the actual creator/post/question/repo page
+- snippets vs the original page
+- landing page vs the real content page
+
+Rule:
+- do not finalize the answer while still on a discovery surface if the task requires the real target page
+- only summarize once the actual target is opened or it is clear that it cannot be opened
