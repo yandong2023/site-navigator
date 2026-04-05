@@ -121,6 +121,9 @@ It includes rules for switching methods when:
 
 ## Technical approach
 
+![architecture](assets/architecture.svg)
+
+
 This project does **not** try to replace OpenClaw’s native tools.
 Instead, it works as a **strategy layer** on top of them.
 
