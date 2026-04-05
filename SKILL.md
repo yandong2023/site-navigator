@@ -1,6 +1,6 @@
 ---
 name: site-navigator
-description: OpenClaw-native web browsing, site navigation, logged-in page access, and source verification strategy. Use when the task involves visiting websites, reading pages, navigating dynamic or login-gated sites, extracting information from rendered UI, interacting with sites like GitHub, Zhihu, Xiaohongshu, and WeChat public content, or deciding between browser, web_fetch, direct page access, and parallel research. Prefer this skill for OpenClaw web tasks that should avoid Brave-based search and instead rely on direct site navigation, official sources, and browser-native access.
+description: OpenClaw-native web browsing, site navigation, rendered-page inspection, logged-in access, and source-verification strategy. Use when the task involves visiting websites, reading pages, navigating dynamic or login-gated sites, extracting information from rendered UI, interacting with sites like GitHub, Zhihu, Xiaohongshu, and WeChat public content, or deciding between browser, web_fetch, direct page access, and parallel research. Prefer this skill for OpenClaw web tasks that should avoid Brave-based search and instead rely on direct site navigation, official sources, and browser-native access.
 ---
 
 # site-navigator
