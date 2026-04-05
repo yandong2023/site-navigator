@@ -2,259 +2,412 @@
 
 English | [简体中文](#简体中文)
 
-OpenClaw-native web browsing and site navigation skill.
+OpenClaw-native browsing skill for hard-to-access web content.
 
-`site-navigator` is a strategy-first AgentSkill for web tasks in OpenClaw. It focuses on **how an agent should choose tools, navigate sites, verify sources, and present stable conclusions** rather than merely exposing raw browser automation.
+`site-navigator` is an OpenClaw AgentSkill focused on a very practical pain point:
 
-It is designed for tasks such as:
-- visiting websites directly
-- navigating within platforms instead of relying on generic search snippets
-- inspecting rendered UI with OpenClaw browser tools
-- handling dynamic or login-gated pages
-- distinguishing discovery surfaces from real target pages
-- keeping conclusions stable before reporting them to the user
+> many real-world links are not easy to read or verify with ordinary search/fetch flows.
+
+In practice, users often want to send a link and have the agent **open the real page, read the actual content, navigate inside the site if needed, and continue learning how to handle that platform better over time**.
+
+This is especially important for sites like:
+- Xiaohongshu
+- Zhihu
+- WeChat public articles
+- Bilibili
+- GitHub
+- other dynamic, platform-style sites where “just fetch the page” is often not enough
+
+## Why this skill exists
+
+A common pain point in real OpenClaw usage is:
+- the user already has a real link
+- the content exists on the real platform
+- but generic search/fetch paths are incomplete, blocked, or too weak
+- the agent cannot reliably reach the actual target page and reason from it
+
+`site-navigator` exists to improve exactly that.
+
+Its goal is simple:
+
+> if the user gives a real link, the agent should be much better at opening it, understanding whether it is a discovery surface or the real target page, reading the actual content, and interacting with the site when needed.
+
+That means the skill is not just about “web access” in the abstract.
+It is about **practical access to hard-to-handle websites and the gradual accumulation of platform-specific operating knowledge**.
+
+## What problem it solves
+
+This skill is designed around these real problems:
+
+### 1. Link-first access to real content
+If the user sends:
+- a WeChat article link
+- a Zhihu column/article link
+- a Xiaohongshu page link
+- a GitHub repo/release/issues page
+- a Bilibili page link
+
+then the skill is meant to help the agent do more than just search around it.
+It should help the agent:
+- open the actual page
+- determine whether it is readable now
+- distinguish between discovery surfaces and real target pages
+- extract the useful content or navigate further if needed
+
+### 2. Better handling of Chinese content platforms
+Many Chinese content platforms are not well served by naive search/fetch behavior.
+This skill is specifically meant to improve OpenClaw’s practical handling of:
+- Xiaohongshu
+- Zhihu
+- WeChat public content
+- Bilibili
+
+### 3. Browser-backed access when static extraction is weak
+When a static read path is weak or incomplete, the skill helps the agent move to a browser-backed approach.
+That makes it possible to:
+- inspect rendered UI
+- follow the real navigation path
+- verify what the page actually shows now
+- work from first-party pages instead of vague snippets
+
+### 4. Capability growth over time
+This project is also about **compounding capability**.
+Each time the agent successfully handles a platform better, that knowledge can be refined into:
+- site patterns
+- routing guidance
+- recovery rules
+- output rules
+
+So the skill is meant to get better with repeated real-world use.
 
 ## What it can do
 
-### 1. Tool routing for web tasks
-It helps the agent decide between:
-- `web_fetch`
-- `browser`
-- `web_search`
-- `sessions_spawn`
+### Link-first site access
+Given a real link, it helps the agent:
+- open it directly
+- check whether it is really reachable
+- determine whether it is the real target page
+- read the visible content or continue navigation
 
-based on the actual task shape, source quality, runtime constraints, and whether rendered state matters.
-
-### 2. Browser-first navigation for complex platforms
-It is especially useful for platforms where the real target is often behind UI navigation rather than simple page fetching, such as:
-- WeChat public articles
+### Platform-aware browsing
+It adds platform-sensitive guidance for sites like:
+- WeChat
 - Xiaohongshu
 - Zhihu
 - GitHub
 
-### 3. Stable-first reporting
-It teaches the agent to:
-- avoid summarizing from snippets too early
-- avoid reporting from discovery/search surfaces as if they were the final target
-- separate stable conclusions from progressive enhancement
+### Stable-first conclusions
+It teaches the agent not to summarize too early from:
+- search snippets
+- discovery surfaces
+- landing pages
+- incomplete renders
 
-### 4. Source verification
-It introduces a source hierarchy so the agent prefers:
-1. first-party sources
-2. structured first-party-adjacent evidence
-3. reputable secondary sources
-4. discovery-only surfaces for navigation, not final verification
+### Source-aware verification
+It teaches the agent to prefer:
+- first-party pages
+- official rendered UI state
+- stronger source chains over secondary summaries
 
-### 5. Failure recovery
-It includes recovery patterns for cases like:
-- incomplete `web_fetch`
-- stale browser targets
-- login walls
-- runtime restrictions
-- ambiguous page state
+### Recovery when the first method fails
+It includes rules for switching methods when:
+- fetch is incomplete
+- runtime blocks a path
+- browser targets go stale
+- login is required
+- the current page is not the real target yet
 
-## Technical design
+## Technical approach
 
-This project is **not** a replacement browser runtime. It is a **strategy layer** for OpenClaw.
+This project does **not** try to replace OpenClaw’s native tools.
+Instead, it works as a **strategy layer** on top of them.
 
-### Core idea
-Instead of building a parallel browser stack, `site-navigator` is designed around OpenClaw native tools and adds:
-- routing logic
-- evidence awareness
-- platform patterns
-- output contracts
-- failure recovery rules
+It is built around the idea that access to difficult websites is not just a tooling problem. It is also a problem of:
+- routing
+- target-page judgment
+- source judgment
+- recovery
+- platform memory
 
-### Technical layers
+### Core technical components
 
 #### 1. Skill layer
-- `SKILL.md`
-- defines when the skill should trigger
-- defines high-level routing logic
-- encodes stable-first browsing principles
+`SKILL.md`
+- when the skill should trigger
+- how to choose an execution path
+- when to treat a page as stable enough to summarize
 
 #### 2. Browser playbook layer
-- `references/openclaw-browser-playbook.md`
-- explains how to use OpenClaw browser tools safely and effectively
-- emphasizes snapshot-first, aria refs, and stable page-state handling
+`references/openclaw-browser-playbook.md`
+- how to use OpenClaw browser flows safely and effectively
+- snapshot-first patterns
+- stable page-state handling
+- runtime-aware routing
 
-#### 3. Evidence layer
+#### 3. Evidence and reporting layer
 - `references/source-hierarchy.md`
 - `references/output-contract.md`
-- defines what counts as strong enough evidence and how results should be reported
+
+These define:
+- which evidence is strong enough
+- how to avoid false certainty
+- how to report findings clearly
 
 #### 4. Task-shape layer
-- `references/task-patterns.md`
-- maps common web-task shapes to default execution paths
+`references/task-patterns.md`
+- maps common task shapes to browsing strategies
+- includes the distinction between discovery surfaces and real target pages
 
-#### 5. Recovery layer
-- `references/failure-recovery.md`
-- describes how to switch strategy when a method fails
+#### 5. Failure-recovery layer
+`references/failure-recovery.md`
+- teaches the agent how to change route when the first attempt is weak or blocked
 
 #### 6. Site-pattern layer
-- `references/site-patterns/*.md`
-- accumulates domain-specific knowledge for repeated targets like GitHub, Zhihu, Xiaohongshu, and WeChat
+`references/site-patterns/*.md`
+- accumulates repeated knowledge about specific platforms
+- this is where long-term practical capability grows
+
+## Why this matters for OpenClaw
+
+This skill is meant to close a real gap:
+
+> before this, OpenClaw was not strong enough at reliably handling some real-world platform links and dynamic content pages that users actually care about.
+
+If this skill works well, OpenClaw becomes much more useful for:
+- opening user-sent links directly
+- reading Chinese platform content
+- navigating difficult platform pages
+- verifying real content instead of relying on weak indirect signals
+- gradually improving through repeated platform-specific experience
 
 ## Repository structure
 
 - `SKILL.md` — main skill definition
 - `references/openclaw-browser-playbook.md` — browser operating patterns
-- `references/output-contract.md` — how to present browsing results
+- `references/output-contract.md` — how browsing results should be reported
 - `references/source-hierarchy.md` — evidence strength model
-- `references/task-patterns.md` — common web task shapes
+- `references/task-patterns.md` — common browsing task shapes
 - `references/failure-recovery.md` — fallback and route-changing guidance
-- `references/examples.md` — concrete usage examples
-- `references/site-patterns/*.md` — domain-specific notes
-- `TESTING.md` — test and iteration notes
+- `references/examples.md` — concrete examples
+- `references/site-patterns/*.md` — site-specific notes
+- `TESTING.md` — real testing notes
 - `RELEASE_NOTES.md` — release-oriented notes
 
 ## Current status
 
-This repository is in iterative alpha/beta-style development for real OpenClaw usage.
-The goal is not to finalize theory first, but to improve through real tasks and repeated refinement.
-
-## Roadmap
-
-- Validate against more real OpenClaw browsing tasks
-- Expand site patterns based on repeated use
-- Refine trigger boundaries and reporting rules
-- Prepare for broader public iteration
+Iterative early-stage development for real OpenClaw use.
+The project is being shaped by real browsing pain points, not just theory.
 
 ---
 
 # 简体中文
 
-OpenClaw 原生网页浏览与站点导航技能。
+OpenClaw 原生的“困难网页访问 / 平台导航”技能。
 
-`site-navigator` 是一个 **策略优先（strategy-first）** 的 OpenClaw AgentSkill。它关注的不是“再造一个浏览器自动化工具”，而是：
+`site-navigator` 这个项目其实是围绕一个非常真实的痛点来的：
 
-- agent 应该如何选工具
-- 应该怎样在网站中导航
-- 怎样判断证据强弱
-- 怎样避免过早下结论
-- 怎样把最终结果稳定地呈现给用户
+> 很多真实世界里的链接，普通搜索 / 普通抓取根本不够用。
 
-它适合处理这类任务：
-- 直接访问网页
-- 在平台内部导航，而不是只停留在搜索摘要
-- 使用 OpenClaw browser 工具检查渲染后的页面
-- 处理动态页面、登录态页面
-- 区分 discovery surface（发现页）和 real target page（真实目标页）
-- 在对外输出前先让结论稳定下来
+用户真正想要的是：
 
-## 这个项目能做什么
+> 给你一个真实链接，你就能把这个页面真正打开、读到内容、必要时继续在站内导航，而且随着使用次数增加，对这些平台越来越熟。
 
-### 1）网页任务的工具路由
-帮助 agent 在这些工具之间做更合理的选择：
-- `web_fetch`
-- `browser`
-- `web_search`
-- `sessions_spawn`
+这件事在这些网站上尤其重要：
+- 小红书
+- 知乎
+- 微信公众号文章
+- B站
+- GitHub
+- 以及其他动态平台型网站
 
-选择依据不是单一的“页面类型”，而是综合考虑：
-- 任务形态
-- 证据强度
-- 运行时限制
-- 是否依赖真实渲染状态
+## 为什么会做这个 skill
 
-### 2）复杂平台的 browser-first 导航
-这个 skill 特别适合处理这类平台：
+在真实 OpenClaw 使用里，一个很常见的问题是：
+- 用户已经给了真实链接
+- 内容明明就在真实平台上
+- 但普通 search/fetch 路径不是提取不完整，就是拿不到真正页面状态
+- agent 很难稳定地到达“真实目标页”，更别说基于它做判断
+
+`site-navigator` 要补的，就是这一块。
+
+它的目标很简单：
+
+> 当用户给出一个真实链接时，agent 应该更擅长把它打开、判断这是不是 discovery surface（发现页）还是 real target page（真实目标页）、读到真实内容、必要时继续在站内操作。
+
+所以它不是抽象意义上的“web access”。
+它更像是：
+
+## **面向困难网站的实用访问能力 + 持续积累的平台操作经验**
+
+## 它要解决的真实问题
+
+### 1）链接优先（link-first）的真实内容访问
+如果用户发来的是：
+- 一篇公众号文章链接
+- 一篇知乎专栏链接
+- 一个小红书页面链接
+- 一个 GitHub repo / release / issue 链接
+- 一个 B站页面链接
+
+这个 skill 的目标不是只在外面搜一圈，
+而是让 agent 更有能力：
+- 直接打开真实页面
+- 判断它现在能不能读
+- 判断它到底是不是“真实目标页”
+- 读取内容，或者继续在站内导航
+
+### 2）更好地处理中文内容平台
+很多中文平台并不适合靠朴素的 search/fetch 来解决。
+这个 skill 就是专门针对这些平台的实际可访问性问题来设计的：
+- 小红书
+- 知乎
+- 微信公众号文章
+- B站
+
+### 3）当静态提取不够时，切换到 browser-backed 路径
+如果静态提取不完整，或者根本拿不到用户真正关心的页面状态，
+这个 skill 会引导 agent 切换到 browser-backed 的路径。
+
+这样 agent 才能：
+- 看渲染后的 UI
+- 沿着真实页面路径继续点进去
+- 确认页面现在到底显示了什么
+- 基于一手页面，而不是摘要碎片做判断
+
+### 4）能力会随着使用不断提升
+这个项目另一个核心点是：
+
+## **能力是可以积累的**
+
+每次 agent 成功处理某个平台，都可以把经验沉淀成：
+- site patterns
+- routing guidance
+- failure recovery rules
+- output rules
+
+所以这个 skill 不是“一次性写完”的，
+而是会随着真实任务反复使用，变得越来越强。
+
+## 它有哪些能力
+
+### 链接优先的站点访问能力
+给一个真实链接时，它会帮助 agent：
+- 直接打开
+- 判断是否真的可访问
+- 判断是否已经到达真实目标页
+- 读取当前可见内容，或者继续导航
+
+### 平台感知的浏览能力
+它会给这些平台提供更有针对性的处理方式：
 - 微信公众号
 - 小红书
 - 知乎
 - GitHub
+- 后续也可以扩展到 B站等平台
 
-这些平台的真实目标内容，很多时候并不在搜索摘要里，而在：
-- 站内搜索结果之后
-- 某个卡片点击之后
-- 某个真实页面打开之后
-- 某个登录态页面里
+### 稳定优先（stable-first）的结论能力
+它会教 agent 避免从这些地方过早下结论：
+- 搜索摘要
+- 发现页 / 搜索页
+- landing page
+- 不完整渲染页
 
-### 3）稳定优先（stable-first）的结果输出
-这个 skill 强调：
-- 不要刚看到一点搜索结果就下结论
-- 不要把 discovery/search surface 当成真实目标页
-- 主结论先稳定，再补截图、链接和额外信息
+### 来源意识 / 一手证据优先
+它会让 agent 尽量优先：
+- 一手页面
+- 官方页面的真实渲染状态
+- 更强的来源链路
+而不是依赖二手转述或弱信号
 
-### 4）证据分级与来源判断
-项目内置了一套 source hierarchy（来源层级）思想，优先级大致是：
-1. 一手来源
-2. 接近一手的结构化证据
-3. 可信二手来源
-4. 仅用于发现下一步线索的搜索/聚合页面
-
-### 5）失败恢复策略
-项目已经开始沉淀真实恢复策略，例如：
-- `web_fetch` 提取不完整怎么办
+### 方法失败后的换路能力
+它已经开始沉淀这类恢复规则：
+- `web_fetch` 不完整怎么办
+- runtime 限制某种方法怎么办
 - browser target 丢失怎么办
-- 登录墙怎么办
-- runtime 对某些工具有限制怎么办
-- 页面状态不明确时怎么办
+- 需要登录怎么办
+- 当前页面还不是目标页怎么办
 
 ## 技术实现思路
 
-这个项目**不是一个新的浏览器运行时**，而是一个 **OpenClaw 策略层（strategy layer）**。
+这个项目**不是重新造一个浏览器运行时**，
+而是一个建立在 OpenClaw 原生能力之上的 **策略层（strategy layer）**。
 
-### 核心思想
-不是在 OpenClaw 外面再造一套平行浏览器系统，
-而是基于 OpenClaw 已有能力，补上：
-- 路由逻辑
-- 证据意识
-- 平台模式
-- 输出契约
-- 失败恢复规则
+它的核心判断是：
+
+> 困难网站的访问问题，不只是工具问题，更是路由问题、目标页判断问题、来源判断问题、恢复问题，以及平台记忆问题。
 
 ### 技术结构分层
 
 #### 1）Skill 主体层
-- `SKILL.md`
-- 定义触发场景
-- 定义高层工具路由逻辑
-- 定义 stable-first 浏览原则
+`SKILL.md`
+负责定义：
+- 什么任务触发这个 skill
+- 怎么选择执行路径
+- 什么时候页面状态足够稳定，可以开始总结
 
 #### 2）Browser playbook 层
-- `references/openclaw-browser-playbook.md`
-- 说明怎样更稳定地使用 OpenClaw browser 工具
-- 强调 snapshot-first、aria refs、稳定页面状态判断
+`references/openclaw-browser-playbook.md`
+负责说明：
+- 怎样更稳定地使用 OpenClaw 的 browser 能力
+- snapshot-first 的操作方式
+- stable page-state handling
+- runtime-aware routing
 
-#### 3）证据层
+#### 3）证据与输出层
 - `references/source-hierarchy.md`
 - `references/output-contract.md`
-- 定义什么算足够强的证据，以及结果应该怎样输出
+
+这一层定义：
+- 什么样的证据足够强
+- 怎样避免假确定性
+- 结果应该怎么输出给用户
 
 #### 4）任务模式层
-- `references/task-patterns.md`
-- 把常见网页任务抽象成默认执行模式
+`references/task-patterns.md`
+负责把常见任务抽象成执行模式，
+包括：
+- discovery surface 和 real target page 的区分
 
-#### 5）恢复层
-- `references/failure-recovery.md`
-- 说明方法失败后应该怎样换路，而不是机械重试
+#### 5）失败恢复层
+`references/failure-recovery.md`
+负责告诉 agent：
+- 第一种方法失败之后怎么换路
+- 什么时候该切 browser
+- 什么时候该承认当前还不能稳定下结论
 
 #### 6）站点模式层
-- `references/site-patterns/*.md`
-- 累积 GitHub、知乎、小红书、微信公众号等平台的已验证经验
+`references/site-patterns/*.md`
+这一层是长期最有价值的部分之一：
+- 把知乎、小红书、GitHub、微信公众号等平台的经验沉淀下来
+- 让能力随着真实使用不断增长
+
+## 为什么这对 OpenClaw 很重要
+
+这个 skill 的意义在于补一个真实缺口：
+
+> 之前 OpenClaw 对某些真实世界平台链接和动态内容页的处理，还不够强。
+
+如果这个 skill 做得好，OpenClaw 会明显更适合：
+- 直接打开用户发来的链接
+- 读取中文平台内容
+- 进入困难平台的真实页面
+- 基于真实内容做验证，而不是停留在弱信号层
+- 通过重复任务不断提升平台处理能力
 
 ## 仓库结构
 
-- `SKILL.md` — 主技能定义
-- `references/openclaw-browser-playbook.md` — 浏览器使用模式
-- `references/output-contract.md` — 浏览结果的输出规范
+- `SKILL.md` — 主 skill 定义
+- `references/openclaw-browser-playbook.md` — browser 使用模式
+- `references/output-contract.md` — 浏览结果输出规范
 - `references/source-hierarchy.md` — 证据强弱模型
 - `references/task-patterns.md` — 常见网页任务模式
-- `references/failure-recovery.md` — 失败恢复与换路策略
-- `references/examples.md` — 典型示例
+- `references/failure-recovery.md` — 失败恢复 / 换路策略
+- `references/examples.md` — 典型案例
 - `references/site-patterns/*.md` — 站点经验
-- `TESTING.md` — 测试与迭代记录
-- `RELEASE_NOTES.md` — 发布备注
+- `TESTING.md` — 真实测试记录
+- `RELEASE_NOTES.md` — 发布说明
 
 ## 当前状态
 
-这个仓库目前处于面向真实 OpenClaw 使用场景的 alpha/beta 式迭代阶段。
-目标不是先把理论写满，而是通过真实任务不断试错、修正、打磨。
-
-## Roadmap / 计划
-
-- 用更多真实 OpenClaw 网页任务继续验证
-- 基于重复使用扩展 site patterns
-- 继续收敛触发边界和输出规则
-- 为更广泛公开迭代做准备
+目前是一个面向真实 OpenClaw 使用的早期迭代项目。
+它的方向不是先把理论写满，而是围绕真实网页访问痛点，一边用、一边修、一边积累能力。
