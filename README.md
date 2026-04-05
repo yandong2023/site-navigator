@@ -247,6 +247,61 @@ Example tasks this skill is meant to help with:
 - “Inspect this GitHub repository page directly instead of relying on search snippets.”
 - “Use direct navigation first so we do not waste paid search API calls unless discovery is truly necessary.”
 
+
+## Quick Start
+
+### Minimal local test
+
+```bash
+git clone https://github.com/yandong2023/site-navigator.git
+cd site-navigator
+```
+
+Then make the skill available to your OpenClaw workflow or skills directory.
+
+At minimum, keep:
+- `SKILL.md`
+- `references/`
+
+### What to try first
+
+Try it with a real link that used to be hard to handle:
+- a WeChat article link
+- a Zhihu column/article link
+- a Xiaohongshu page link
+- a Bilibili page link
+- a GitHub repo/release/issues page link
+
+The intended improvement is that the agent should be more willing to:
+- open the real page directly
+- verify whether it is the real target page
+- navigate further with browser-backed flows if needed
+- avoid wasting paid search calls unless discovery is truly necessary
+
+## Before / After
+
+### Before
+A typical workflow might be:
+- start from generic search
+- depend on paid search APIs too early
+- stop at snippets or discovery surfaces
+- fail to reach the real target page reliably
+
+### After
+With `site-navigator`, the intended workflow becomes:
+- start from the real link when available
+- prefer first-party pages and direct navigation
+- switch to browser-backed access when static reading is weak
+- summarize only after the real target page is reached or ruled out
+
+## Minimal example prompts
+
+- “Read this WeChat article link and summarize the real content.”
+- “Open this Zhihu link and tell me whether it is the actual article page.”
+- “Go to this Xiaohongshu page and verify whether this is the real account.”
+- “Open this Bilibili page and tell me what the current visible page is.”
+- “Inspect this GitHub repo page directly instead of relying on search snippets.”
+
 ## Repository structure
 
 - `SKILL.md` — main skill definition
@@ -529,6 +584,61 @@ git clone https://github.com/yandong2023/site-navigator.git
 - “去这个小红书页面看一下，确认是不是目标账号/帖子。”
 - “直接看这个 GitHub repo 页面，不要只依赖搜索摘要。”
 - “优先用 direct navigation，避免不必要地消耗 Brave API。”
+
+
+## Quick Start / 快速开始
+
+### 最小本地测试方式
+
+```bash
+git clone https://github.com/yandong2023/site-navigator.git
+cd site-navigator
+```
+
+然后把这个 skill 放到你的 OpenClaw skills 路径中，或者让你的 OpenClaw workflow 能读取到它。
+
+最关键的文件至少包括：
+- `SKILL.md`
+- `references/`
+
+### 最适合先拿什么测试
+
+建议先拿这些“过去比较难处理”的真实链接来试：
+- 一篇公众号文章链接
+- 一篇知乎专栏 / 文章链接
+- 一个小红书页面链接
+- 一个 B 站页面链接
+- 一个 GitHub repo / release / issue 页面链接
+
+这个 skill 想带来的改进是：
+- 更愿意直接打开真实页面
+- 更会判断当前是不是目标页
+- 静态读取不够时，能切到 browser-backed 路径继续走
+- 不是一上来就消耗付费搜索 API
+
+## Before / After
+
+### Before
+以前很多流程容易变成：
+- 先走通用搜索
+- 很早就依赖付费搜索 API
+- 停留在摘要或发现页
+- 迟迟到不了真实目标页
+
+### After
+有了 `site-navigator` 之后，理想路径会变成：
+- 有真实链接时先直达真实页面
+- 优先一手页面和站内导航
+- 静态读取不够时切到 browser-backed 路径
+- 到达真实目标页后再总结，或者明确说明还没到达
+
+## 最小示例任务
+
+- “读一下这篇公众号文章链接，给我总结真实内容。”
+- “打开这个知乎链接，告诉我这是不是文章真实页。”
+- “去这个小红书页面看一下，确认是不是目标账号。”
+- “打开这个 B 站页面，告诉我当前真实可见页面是什么。”
+- “直接看这个 GitHub repo 页面，不要只依赖搜索摘要。”
 
 ## 仓库结构
 
