@@ -49,6 +49,18 @@ This skill is especially useful for:
 - official docs and product sites
 - dynamic web apps and dashboards
 
+## Trigger guidance
+
+This skill should trigger when the user asks for things like:
+- “去这个网站看一下”
+- “看看这个页面/账号/帖子/文章/repo”
+- “帮我在某个平台上找……”
+- “验证这篇内容/这个链接/这个账号是不是真的存在”
+- “比较几个官网/页面/平台内容”
+- “需要登录态去看一下这个页面”
+
+This skill is a better fit than generic search when the task is primarily about **site navigation, page-state verification, rendered content, or first-party evidence**.
+
 ## OpenClaw tool routing
 
 Prefer these routes without depending on Brave search.
@@ -188,6 +200,8 @@ When only secondary evidence exists, say so clearly.
 
 ## Stable-first output rules
 
+Read `references/output-contract.md` when you need to format a user-facing browsing result.
+
 When reporting results from browsing:
 - first gather enough evidence for a stable answer
 - then give the answer
@@ -234,6 +248,7 @@ Never store secrets, cookies, tokens, or personal data.
 ## References
 
 Read these when relevant:
+- `references/output-contract.md` for how to report browsing results clearly
 - `references/openclaw-browser-playbook.md` for native browser operating patterns
 - `references/site-patterns/wechat.md`
 - `references/site-patterns/xiaohongshu.md`
