@@ -72,3 +72,24 @@ Recovery:
 - trust the current snapshot over old assumptions
 - re-orient from the current visible UI
 - update site-pattern guidance later if the new pattern proves stable
+
+
+### 8. Tool/runtime limitation blocks the preferred method
+Problem:
+- the preferred tool is blocked by runtime policy or environment limitations
+- example: a fetch path that should work in theory is unavailable in the current runtime
+
+Recovery:
+- do not keep retrying the blocked method
+- switch to the next reliable path (`browser`, direct first-party page, or another supported route)
+- treat tool availability as part of routing, not as an afterthought
+
+### 9. Browser target becomes stale or disappears
+Problem:
+- a browser target ID no longer exists
+- snapshot/action fails because the tab was closed, replaced, or lost
+
+Recovery:
+- reopen or refocus the page
+- take a fresh snapshot and continue from the current state
+- do not assume old target references remain valid across every step

@@ -34,6 +34,11 @@ Prefer `web_fetch` when:
 - no interaction is needed
 - you only need content extraction or summarization
 
+## Runtime-aware routing
+
+Tool choice depends on both page type and actual tool availability in the current runtime.
+If a theoretically good path is blocked by runtime or policy limits, switch quickly to the next reliable route instead of repeatedly retrying the blocked path.
+
 ## Stable-first rule
 
 Do not expose a changing intermediate browser conclusion as the final answer.
