@@ -190,6 +190,8 @@ Always prefer first-party repo pages over mirrors and reposted summaries.
 
 ## First-party verification hierarchy
 
+Read `references/source-hierarchy.md` when source strength matters.
+
 For verification tasks, prefer:
 1. official page / original URL
 2. official repo / official docs / official changelog
@@ -211,6 +213,10 @@ Do not:
 - present search snippets as evidence
 - show unstable intermediate browsing conclusions as final
 - overuse screenshots when extracted text is already enough
+
+## Task pattern selection
+
+Read `references/task-patterns.md` when the user task shape is unclear and you need a default execution pattern.
 
 ## Parallel web research
 
@@ -248,6 +254,8 @@ Never store secrets, cookies, tokens, or personal data.
 ## References
 
 Read these when relevant:
+- `references/task-patterns.md` for common browsing task shapes
+- `references/source-hierarchy.md` for deciding whether evidence is strong enough
 - `references/output-contract.md` for how to report browsing results clearly
 - `references/openclaw-browser-playbook.md` for native browser operating patterns
 - `references/site-patterns/wechat.md`
