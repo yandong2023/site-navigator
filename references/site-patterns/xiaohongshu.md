@@ -5,18 +5,28 @@ updated: 2026-04-05
 ---
 
 ## Platform traits
-- Public content is usually better handled in a real browser than in static extraction.
-- Discovery flows are UI-first: cards, creators, feeds, and post pages.
-- Rendered state matters for screenshots, visible post metadata, and proof of what is currently shown.
-- Tasks around publishing, creator tools, or account operations are high-risk and require explicit user approval.
+- Public content is usually best handled in a real browser.
+- Discovery is UI-first: cards, creators, post pages, search suggestions, and feed context.
+- Rendered state matters for screenshots, visible metadata, and proof of what is currently shown.
+- Publishing, creator tools, and account operations are sensitive and require explicit approval.
 
 ## Effective patterns
-- Treat Xiaohongshu as browser-first for search and discovery.
-- Open the site in `browser`, take a snapshot, and identify the current visible navigation path before clicking.
-- Use screenshots only when they are meaningful evidence, not as default output.
-- For “find this account / post / topic” tasks, navigate within the site rather than relying on generic search snippets.
+
+### Search / discovery
+- Use `browser` rather than generic search as the default path.
+- Open the site, snapshot the visible UI, then identify cards, creators, tabs, or search entry points.
+- Navigate inside the site instead of relying on stale search snippets.
+
+### Post inspection
+- Once on a post page, capture the visible metadata the user actually cares about: title-like text, author/account, engagement indicators if visible, and the main content.
+- Use screenshots only when visual proof matters.
+
+### Account / creator inspection
+- Stay browser-first.
+- Confirm that the page is really the target creator before summarizing.
+- Prefer stable, visible identifiers from the rendered page instead of inferred identity from external search results.
 
 ## Known pitfalls
-- Generic search results may be incomplete, stale, or detached from the actual rendered page.
-- Static extraction often misses the real page state or the content ordering the user cares about.
-- UI can change, so rely on current snapshots rather than memorized selectors.
+- Search-engine snippets are often incomplete or detached from the actual rendered page.
+- Static extraction may miss the page state or content ordering the user cares about.
+- UI changes frequently; current snapshot state is more reliable than memorized assumptions.

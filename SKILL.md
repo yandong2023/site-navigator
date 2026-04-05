@@ -234,6 +234,7 @@ Never store secrets, cookies, tokens, or personal data.
 ## References
 
 Read these when relevant:
+- `references/openclaw-browser-playbook.md` for native browser operating patterns
 - `references/site-patterns/wechat.md`
 - `references/site-patterns/xiaohongshu.md`
 - `references/site-patterns/zhihu.md`
