@@ -180,6 +180,73 @@ If this skill works well, OpenClaw becomes much more useful for:
 - verifying real content instead of relying on weak indirect signals
 - gradually improving through repeated platform-specific experience
 
+
+## Another key benefit: less dependence on paid search APIs
+
+A second pain point behind this project is over-dependence on paid search APIs such as Brave Search for tasks that do not actually need generic search as the primary path.
+
+For many real tasks, the user already provides:
+- a real URL
+- a known platform
+- or a concrete target that is better reached through direct navigation
+
+In those cases, forcing the workflow through a paid search layer can add:
+- unnecessary API cost
+- weaker source quality
+- more indirection
+- more chances to stop at snippets instead of the real target page
+
+`site-navigator` is designed to reduce that dependency by preferring:
+- direct URLs
+- first-party pages
+- browser-backed site navigation
+- platform-aware routing
+
+This is not only about saving money. It is also about choosing a more direct and reliable path to the real content.
+
+## Installation
+
+This repository is currently structured as an OpenClaw-style skill project.
+
+### Current installation approach
+
+If you are testing locally, clone the repository into a skills directory that your OpenClaw workflow can read from:
+
+```bash
+git clone https://github.com/yandong2023/site-navigator.git
+```
+
+Then make sure the skill files are available to the OpenClaw environment where you want to use them.
+
+At minimum, the important files are:
+- `SKILL.md`
+- `references/`
+
+### Recommended usage model
+
+Use this skill as a strategy layer when tasks involve:
+- user-sent links
+- hard-to-access content platforms
+- first-party verification
+- browser-backed navigation
+- reducing unnecessary paid-search dependence
+
+### Runtime note
+
+This skill works best in an OpenClaw environment that already has:
+- `browser` available for rendered-page access
+- `web_fetch` available for lightweight reading when possible
+- the ability to reuse browser state when login-dependent access matters
+
+## Quick usage examples
+
+Example tasks this skill is meant to help with:
+- “Read this WeChat article and summarize the real content.”
+- “Open this Zhihu link and tell me whether it is the actual article page.”
+- “Go to this Xiaohongshu page and verify whether this is the real account/post.”
+- “Inspect this GitHub repository page directly instead of relying on search snippets.”
+- “Use direct navigation first so we do not waste paid search API calls unless discovery is truly necessary.”
+
 ## Repository structure
 
 - `SKILL.md` — main skill definition
@@ -393,6 +460,75 @@ OpenClaw 原生的“困难网页访问 / 平台导航”技能。
 - 进入困难平台的真实页面
 - 基于真实内容做验证，而不是停留在弱信号层
 - 通过重复任务不断提升平台处理能力
+
+
+## 另一个重要价值：减少对付费搜索 API 的依赖
+
+这个项目背后还有一个很现实的痛点：
+很多原本不该优先走通用搜索的任务，过去却很容易默认依赖 Brave Search 这类付费搜索 API。
+
+但很多真实任务里，用户其实已经给了：
+- 真实链接
+- 明确平台
+- 或者非常具体的目标
+
+这时候如果还强行先走付费搜索层，往往会带来：
+- 额外 API 成本
+- 更弱的来源质量
+- 更多中间跳转
+- 更容易停留在搜索摘要，而不是真实目标页
+
+`site-navigator` 的一个核心价值，就是尽量把这些任务改造成：
+- direct URL
+- 一手页面优先
+- browser-backed 站内导航
+- 平台感知的路由
+
+所以它不只是为了省钱，
+也是为了让 agent 走一条**更直接、更可靠、更接近真实内容**的路径。
+
+## 安装方式
+
+目前这个仓库已经按 OpenClaw skill 项目的结构组织好了。
+
+### 当前安装方式
+
+如果你要本地测试，可以先把仓库 clone 下来：
+
+```bash
+git clone https://github.com/yandong2023/site-navigator.git
+```
+
+然后把这个 skill 放到你的 OpenClaw 可读取的 skills 路径中，或者在你自己的 OpenClaw workflow 中直接引用它。
+
+最关键的文件是：
+- `SKILL.md`
+- `references/`
+
+### 推荐使用方式
+
+这个 skill 最适合放在这些任务上：
+- 用户直接发链接
+- 难访问的平台内容
+- 一手页面验证
+- 依赖 browser 的站内导航
+- 希望减少 Brave API 这类付费搜索依赖的任务
+
+### 运行环境说明
+
+这个 skill 最适合运行在已经具备这些能力的 OpenClaw 环境里：
+- 有 `browser`，能访问渲染后的真实页面
+- 有 `web_fetch`，能在轻量阅读时快速提取正文
+- 必要时能复用浏览器状态，处理登录态页面
+
+## 快速使用示例
+
+这个 skill 适合帮助 agent 处理这类任务：
+- “读一下这篇公众号文章，给我总结真实内容。”
+- “打开这个知乎链接，告诉我这是不是文章真实页。”
+- “去这个小红书页面看一下，确认是不是目标账号/帖子。”
+- “直接看这个 GitHub repo 页面，不要只依赖搜索摘要。”
+- “优先用 direct navigation，避免不必要地消耗 Brave API。”
 
 ## 仓库结构
 
