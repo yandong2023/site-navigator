@@ -5,15 +5,17 @@ updated: 2026-04-05
 ---
 
 ## Platform traits
-- Public article URLs are often directly shareable.
-- Some article content is readable as a normal page; some extraction layers may miss formatting or embedded media.
-- Verification tasks usually care about title, author, publication date, article body, and whether the article still resolves.
+- Shared article URLs are often direct and stable enough to inspect.
+- Many tasks revolve around reading one exact article, not sitewide exploration.
+- Useful facts often include title, author, date, main body, and whether the article still resolves.
 
 ## Effective patterns
-- Start from the exact article URL if available.
-- Try `web_fetch` first for article reading/summarization.
-- Switch to `browser` if the extracted content looks incomplete or if visual/page-state confirmation matters.
+- Start with the exact article URL whenever possible.
+- Try `web_fetch` first for article reading, summarization, and extraction.
+- Switch to `browser` if formatting, embedded media, or page-state confirmation matters.
+- Treat the article page itself as the first-party source; avoid using search snippets as substitutes.
 
 ## Known pitfalls
-- Search-engine snippets are not the article.
-- Embedded media, formatting, or secondary linked content may require browser inspection.
+- Extracted text can miss formatting or embedded media.
+- Secondary reposts are not the same as the original WeChat article.
+- Some tasks need browser confirmation even when text extraction mostly works.

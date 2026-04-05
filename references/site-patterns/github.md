@@ -5,15 +5,15 @@ updated: 2026-04-05
 ---
 
 ## Platform traits
-- GitHub has strong first-party structure for repos, issues, PRs, releases, commits, and Actions.
-- Some tasks are better served by native GitHub APIs/CLI; others are fine with page reading.
+- GitHub has strong first-party structure for repos, releases, issues, PRs, commits, and docs.
+- Many reading tasks can be solved without a browser; some rendered UI checks still benefit from browser inspection.
 
 ## Effective patterns
-- Use official repo pages as the source of truth.
-- For README, docs, changelog, and release notes, `web_fetch` is often enough.
-- For rendered UI, Actions pages, or interactive verification, use `browser`.
-- For structured GitHub operations, consider the dedicated GitHub skill/CLI path when available.
+- Use official repo pages as source of truth.
+- For README, docs, release notes, and changelog pages, try `web_fetch` first.
+- Use `browser` for rendered UI state, Actions pages, tabbed views, or visual proof.
+- Use native GitHub operations/CLI when the task is structured GitHub management rather than plain page reading.
 
 ## Known pitfalls
-- Third-party mirrors or scraped summaries are secondary sources.
-- UI screenshots are evidence of current rendered state, not substitutes for source data when structured repo metadata is available.
+- Mirrors and reposted summaries are secondary sources.
+- Screenshots show rendered state but are not substitutes for structured repo facts when those are directly available.

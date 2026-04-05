@@ -5,16 +5,18 @@ updated: 2026-04-05
 ---
 
 ## Platform traits
-- Public content often behaves better in a real browser than in static fetch flows.
-- Discovery tasks are usually UI-driven: cards, feeds, creators, post pages, search suggestions.
-- Rendered state matters for screenshots and result verification.
+- Public content is usually better handled in a real browser than in static extraction.
+- Discovery flows are UI-first: cards, creators, feeds, and post pages.
+- Rendered state matters for screenshots, visible post metadata, and proof of what is currently shown.
+- Tasks around publishing, creator tools, or account operations are high-risk and require explicit user approval.
 
 ## Effective patterns
-- Treat Xiaohongshu as browser-first for search/discovery.
-- Use snapshots to identify cards, creator links, and post entries before clicking.
-- Capture screenshots only when they are meaningful evidence.
+- Treat Xiaohongshu as browser-first for search and discovery.
+- Open the site in `browser`, take a snapshot, and identify the current visible navigation path before clicking.
+- Use screenshots only when they are meaningful evidence, not as default output.
+- For “find this account / post / topic” tasks, navigate within the site rather than relying on generic search snippets.
 
 ## Known pitfalls
-- Generic search snippets are often incomplete or stale.
-- Static extraction may miss the real rendered page state.
-- Workflows involving posting or creator actions require explicit user permission.
+- Generic search results may be incomplete, stale, or detached from the actual rendered page.
+- Static extraction often misses the real page state or the content ordering the user cares about.
+- UI can change, so rely on current snapshots rather than memorized selectors.
